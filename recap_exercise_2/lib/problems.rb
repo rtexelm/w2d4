@@ -70,6 +70,38 @@ class Array
     #
     # This should remind you of the spaceship operator! Convenient :)
     def bubble_sort(&prc)
+        sorted = false
+
+        unless prc
+            while !sorted
+                sorted = true
+
+                (0...self.size - 1).each do |i|
+                    if self[i] > self[i+1]
+                        self[i], self[i+1] = self[i+1], self[i]
+                        sorted = false
+                    end
+                end
+            end
+            return self
+        end
         
+        while !sorted
+            sorted = true
+
+            (0...self.size - 1).each do |i|
+                e1 = self[i] 
+                e2 = self[i+1]
+                if prc.call(e1, e2) == 1
+                    self[i], self[i+1] = self[i+1], self[i]
+                    # e1, e2 = e2, e1 # Why won't variables work?
+                    sorted = false
+                end
+            end
+
+        end
+
+        self
     end
+
 end
