@@ -1,21 +1,43 @@
-# Write a method, least_common_multiple, that takes in two numbers and returns the smallest number that is a mutiple
+# Write a method, least_common_multiple, that takes in two numbers and returns the smallest number that is a multiple
 # of both of the given numbers
 def least_common_multiple(num_1, num_2)
+    found = false
+    multiple = 1
 
+    while !found
+        found = true
+        unless (multiple % num_1) == 0 && (multiple % num_2) == 0
+            multiple += 1
+            found = false
+        end
+    end
+
+    multiple
 end
 
+# def multiples(num)
+
+# end
 
 # Write a method, most_frequent_bigram, that takes in a string and returns the two adjacent letters that appear the
 # most in the string.
 def most_frequent_bigram(str)
+    bigrams = []
 
+    str.each_char.with_index do |l, i|
+        unless i == str.length - 1
+            bigrams << l + str[i+1]
+        end
+    end
+
+    bigrams.max_by {|bg| bigrams.count(bg)}
 end
 
 
 class Hash
     # Write a method, Hash#inverse, that returns a new hash where the key-value pairs are swapped
     def inverse
-
+        self.map {|k, v| [v, k]}.to_h
     end
 end
 
@@ -23,7 +45,15 @@ end
 class Array
     # Write a method, Array#pair_sum_count, that takes in a target number returns the number of pairs of elements that sum to the given target
     def pair_sum_count(num)
+        count = 0
 
+        self.each_with_index do |n, i|
+            self.each_with_index do |n2, i2|
+                count += 1 if i > i2 && n + n2 == num
+            end
+        end
+
+        count
     end
 
     # Write a method, Array#bubble_sort, that takes in an optional proc argument.
@@ -40,6 +70,6 @@ class Array
     #
     # This should remind you of the spaceship operator! Convenient :)
     def bubble_sort(&prc)
-
+        
     end
 end
